@@ -7,9 +7,9 @@ export const metadata: Metadata = {
 
 const apps = [
   {
-    slug: "numbers",
-    name: "Numbers",
-    tagline: "A focused daily numbers activity.",
+    slug: "placeholder",
+    name: "Placeholder",
+    tagline: "",
     status: "In development",
   },
 ];

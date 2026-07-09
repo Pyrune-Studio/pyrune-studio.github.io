@@ -12,7 +12,7 @@ export default function Home() {
         Build and Distribute amazing mobile apps to the world.
       </p>
       <p className="max-w-xl text-lg leading-8 text-brand-yellow">
-        🚧 Studio unde construction... 🚧
+        🚧 Studio under construction... 🚧
       </p>
       {/* <Link
         href="/apps"

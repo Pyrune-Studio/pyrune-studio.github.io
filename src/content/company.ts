@@ -2,7 +2,7 @@
 // Every TODO below must be filled in before going live. See README.md.
 
 export const company = {
-  legalName: "Pyrune Studio Limited", // TODO: confirm exact registered name
+  legalName: "Pyrune Studio Limited",
   tradingName: "Pyrune Studio",
   croNumber: "819940",
   vatNumber: null as string | null, // TODO: set if VAT-registered

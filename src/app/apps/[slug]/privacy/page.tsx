@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { LegalPage } from "@/components/LegalPage";
-import { apps, getApp } from "@/content/apps";
+import { appsWithLegalPages, getApp } from "@/content/apps";
 import { company } from "@/content/company";
 
 // TODO: template generated from src/content/apps.ts. Have it reviewed by a
@@ -14,7 +14,7 @@ type Props = { params: Promise<{ slug: string }> };
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return apps.map((app) => ({ slug: app.slug }));
+  return appsWithLegalPages.map((app) => ({ slug: app.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {

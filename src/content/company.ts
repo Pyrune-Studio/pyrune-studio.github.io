@@ -4,9 +4,10 @@
 export const company = {
   legalName: "Pyrune Studio Limited", // TODO: confirm exact registered name
   tradingName: "Pyrune Studio",
-  croNumber: "TODO", // TODO: Companies Registration Office number
+  croNumber: "819940",
   vatNumber: null as string | null, // TODO: set if VAT-registered
-  registeredOffice: "TODO, Ireland", // TODO: full registered office address
+  registeredOffice:
+    "Suite 2, Cathedral Buildings, Middle Street, Galway, H91 ERD1, Ireland",
   email: "contact@pyrune.studio",
   domain: "pyrune.studio",
   appStoreDeveloperUrl: null as string | null, // TODO: once the first app is live

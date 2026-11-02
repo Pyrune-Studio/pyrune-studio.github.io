@@ -1,9 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
-import type { App } from "@/content/apps";
+import { appStores, type App } from "@/content/apps";
+import { getDictionary } from "@/i18n";
 import { StatusTag } from "./StatusTag";
 
 export function AppCard({ app }: { app: App }) {
+  const t = getDictionary();
+  const stores = appStores(app);
+
   return (
     <Link
       href={`/apps/${app.slug}`}
@@ -23,6 +27,12 @@ export function AppCard({ app }: { app: App }) {
         <h3 className="font-semibold tracking-tight text-fg">{app.name}</h3>
         <p className="mt-1 text-sm text-muted">{app.tagline}</p>
       </div>
+      <p className="mt-auto flex flex-wrap gap-x-2 border-t border-line pt-3 font-mono text-[0.7rem] uppercase tracking-wider text-muted">
+        <span>{app.role === "publisher" ? t.apps.rolePublisher : t.apps.roleDeveloper}</span>
+        {stores.map(({ store }) => (
+          <span key={store}>· {t.stores[store]}</span>
+        ))}
+      </p>
     </Link>
   );
 }

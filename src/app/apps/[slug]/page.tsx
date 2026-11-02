@@ -4,7 +4,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { StatusTag } from "@/components/StatusTag";
 import { StoreBadges } from "@/components/StoreBadge";
-import { apps, getApp } from "@/content/apps";
+import { appStores, apps, getApp } from "@/content/apps";
+import { company } from "@/content/company";
 import { getDictionary } from "@/i18n";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -29,6 +30,7 @@ export default async function AppPage({ params }: Props) {
   const app = getApp((await params).slug);
   if (!app) notFound();
   const t = getDictionary();
+  const stores = appStores(app);
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6 sm:py-20">
@@ -52,8 +54,35 @@ export default async function AppPage({ params }: Props) {
 
       <p className="mt-10 max-w-2xl leading-relaxed text-muted">{app.description}</p>
 
+      <dl className="mt-8 grid gap-x-8 gap-y-3 border-y border-line py-5 text-sm sm:grid-cols-[auto_1fr]">
+        {app.websiteUrl && (
+          <>
+            <dt className="font-mono text-xs uppercase tracking-wider text-muted sm:pt-0.5">
+              {t.apps.website}
+            </dt>
+            <dd>
+              <a href={app.websiteUrl} className="text-accent hover:underline">
+                {new URL(app.websiteUrl).hostname.replace(/^www\./, "")} ↗
+              </a>
+            </dd>
+          </>
+        )}
+        <dt className="font-mono text-xs uppercase tracking-wider text-muted sm:pt-0.5">
+          {t.apps.publishedBy}
+        </dt>
+        <dd>{company.tradingName}</dd>
+        {stores.length > 0 && (
+          <>
+            <dt className="font-mono text-xs uppercase tracking-wider text-muted sm:pt-0.5">
+              {t.apps.publishedOn}
+            </dt>
+            <dd>{stores.map(({ store }) => t.stores[store]).join(", ")}</dd>
+          </>
+        )}
+      </dl>
+
       <div className="mt-8">
-        <StoreBadges appStoreUrl={app.appStoreUrl} googlePlayUrl={app.googlePlayUrl} />
+        <StoreBadges app={app} />
       </div>
 
       {app.screenshots && app.screenshots.length > 0 && (
@@ -80,17 +109,19 @@ export default async function AppPage({ params }: Props) {
         </section>
       )}
 
-      <nav
-        aria-label={`${app.name} links`}
-        className="mt-14 flex gap-6 border-t border-line pt-6 font-mono text-sm"
-      >
-        <Link href={`/apps/${app.slug}/privacy`} className="text-accent hover:underline">
-          {t.apps.privacy}
-        </Link>
-        <Link href={`/apps/${app.slug}/support`} className="text-accent hover:underline">
-          {t.apps.support}
-        </Link>
-      </nav>
+      {!app.hideLegalPages && (
+        <nav
+          aria-label={`${app.name} links`}
+          className="mt-14 flex gap-6 border-t border-line pt-6 font-mono text-sm"
+        >
+          <Link href={`/apps/${app.slug}/privacy`} className="text-accent hover:underline">
+            {t.apps.privacy}
+          </Link>
+          <Link href={`/apps/${app.slug}/support`} className="text-accent hover:underline">
+            {t.apps.support}
+          </Link>
+        </nav>
+      )}
     </div>
   );
 }

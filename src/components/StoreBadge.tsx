@@ -1,8 +1,9 @@
 import Image from "next/image";
+import { appStores, type App, type Store } from "@/content/apps";
 
 // Official badge artwork. Apple asks for a height of at least 40px on screen
 // and no alteration of the artwork.
-const badges = {
+const badges: Record<Store, { src: string; width: number; height: number; alt: string }> = {
   "app-store": {
     src: "/AppleStore.png",
     width: 210,
@@ -18,7 +19,7 @@ const badges = {
 };
 
 type StoreBadgeProps = {
-  store: keyof typeof badges;
+  store: Store;
   href: string;
 };
 
@@ -32,19 +33,15 @@ export function StoreBadge({ store, href }: StoreBadgeProps) {
   );
 }
 
-export function StoreBadges({
-  appStoreUrl,
-  googlePlayUrl,
-}: {
-  appStoreUrl?: string;
-  googlePlayUrl?: string;
-}) {
-  if (!appStoreUrl && !googlePlayUrl) return null;
+export function StoreBadges({ app }: { app: App }) {
+  const stores = appStores(app);
+  if (stores.length === 0) return null;
 
   return (
     <div className="flex flex-wrap gap-3">
-      {appStoreUrl && <StoreBadge store="app-store" href={appStoreUrl} />}
-      {googlePlayUrl && <StoreBadge store="google-play" href={googlePlayUrl} />}
+      {stores.map(({ store, url }) => (
+        <StoreBadge key={store} store={store} href={url} />
+      ))}
     </div>
   );
 }

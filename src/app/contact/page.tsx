@@ -13,7 +13,7 @@ export default function ContactPage() {
     <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6 sm:py-24">
       <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">Contact</h1>
       <p className="mt-3 max-w-md text-muted">
-        Questions, partnerships or press: one inbox, read by humans.
+        Questions, partnerships or press:
       </p>
 
       <a

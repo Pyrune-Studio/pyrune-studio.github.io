@@ -5,7 +5,7 @@ export const en = {
     // Alternatives: "Apps, forged with care." · "Independent app studio."
     tagline: "We craft apps.",
     subtitle:
-      "Pyrune Studio designs, builds and publishes mobile apps from Ireland.",
+      "Pyrune Studio designs, builds and publishes mobile apps.",
   },
   nav: {
     apps: "Apps",
@@ -14,7 +14,7 @@ export const en = {
   },
   apps: {
     title: "Apps",
-    intro: "Small, focused apps. No bloat, no dark patterns.",
+    intro: "Small, focused apps.",
     comingSoon: "Coming soon",
     live: "Available",
     emptyTitle: "First apps in the forge",
@@ -22,14 +22,21 @@ export const en = {
     privacy: "Privacy",
     support: "Support",
     screenshots: "Screenshots",
+    website: "Website",
+    publishedBy: "Published by",
+    publishedOn: "Published on",
+    roleDeveloper: "Studio app",
+    rolePublisher: "Published",
+  },
+  stores: {
+    "app-store": "App Store",
+    "google-play": "Google Play",
   },
   footer: {
     legal: "Legal",
     privacy: "Privacy",
     terms: "Terms",
     contact: "Contact",
-    appStore: "App Store",
-    googlePlay: "Google Play",
   },
   notFound: {
     code: "404",

@@ -12,8 +12,8 @@ export function Footer() {
     { href: "/contact", label: t.footer.contact },
   ];
   const storeLinks = [
-    { href: company.appStoreDeveloperUrl, label: t.footer.appStore },
-    { href: company.googlePlayDeveloperUrl, label: t.footer.googlePlay },
+    { href: company.appStoreDeveloperUrl, label: t.stores["app-store"] },
+    { href: company.googlePlayDeveloperUrl, label: t.stores["google-play"] },
   ].filter((link): link is { href: string; label: string } => !!link.href);
 
   return (

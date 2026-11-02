@@ -1,5 +1,9 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { Header } from "@/components/Header";
+import { Footer } from "@/components/Footer";
+import { company, siteUrl } from "@/content/company";
+import { getDictionary } from "@/i18n";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -12,16 +16,31 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const t = getDictionary();
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: {
-    default: "Pyrune Studio",
-    template: "%s · Pyrune Studio",
+    default: `${company.tradingName} · ${t.hero.tagline}`,
+    template: `%s · ${company.tradingName}`,
   },
-  description:
-    "Pyrune Studio builds and ships focused React Native apps, tests markets, and scales what has signal.",
-  icons: {
-    icon: "/logo.png",
+  description: t.hero.subtitle,
+  applicationName: company.tradingName,
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    siteName: company.tradingName,
+    locale: "en_IE",
+    url: "/",
   },
+  twitter: { card: "summary_large_image" },
+};
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: dark)", color: "#0a0d1f" },
+    { media: "(prefers-color-scheme: light)", color: "#f6f7fc" },
+  ],
 };
 
 export default function RootLayout({
@@ -34,7 +53,13 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="flex min-h-full flex-col">
+        <Header />
+        <main id="main" className="flex-1">
+          {children}
+        </main>
+        <Footer />
+      </body>
     </html>
   );
 }

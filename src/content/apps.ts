@@ -27,6 +27,9 @@ export type App = {
   // true when the app's privacy policy and support live elsewhere (e.g. its own
   // website): /apps/[slug]/privacy and /support are then not generated.
   hideLegalPages?: boolean;
+  // External legal pages, shown on the app page when hideLegalPages is true.
+  privacyPolicyUrl?: string;
+  termsUrl?: string;
   supportEmail?: string; // defaults to company.email
   dataCollected: string[]; // used to generate the privacy policy
   thirdPartyServices: ThirdPartyService[];
@@ -52,9 +55,10 @@ export const apps: App[] = [
     icon: "/apps/peeps_logo.png",
     status: "live",
     role: "publisher",
-    websiteUrl: "https://www.getpeeps.app",
     googlePlayUrl: "https://play.google.com/store/apps/details?id=com.buttergames.peeps",
     hideLegalPages: true,
+    privacyPolicyUrl: "https://www.getpeeps.app/legal/privacy-policy",
+    termsUrl: "https://www.getpeeps.app/legal/terms-of-service",
     dataCollected: [],
     thirdPartyServices: [],
     privacyLastUpdated: "2026-11-02",

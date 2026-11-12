@@ -109,7 +109,7 @@ export default async function AppPage({ params }: Props) {
         </section>
       )}
 
-      {!app.hideLegalPages && (
+      {!app.hideLegalPages ? (
         <nav
           aria-label={`${app.name} links`}
           className="mt-14 flex gap-6 border-t border-line pt-6 font-mono text-sm"
@@ -121,6 +121,24 @@ export default async function AppPage({ params }: Props) {
             {t.apps.support}
           </Link>
         </nav>
+      ) : (
+        (app.privacyPolicyUrl || app.termsUrl) && (
+          <nav
+            aria-label={`${app.name} legal`}
+            className="mt-14 flex gap-6 border-t border-line pt-6 text-sm"
+          >
+            {app.termsUrl && (
+              <a href={app.termsUrl} className="text-fg underline underline-offset-4 hover:text-accent">
+                {t.apps.termsOfService}
+              </a>
+            )}
+            {app.privacyPolicyUrl && (
+              <a href={app.privacyPolicyUrl} className="text-fg underline underline-offset-4 hover:text-accent">
+                {t.apps.privacyPolicy}
+              </a>
+            )}
+          </nav>
+        )
       )}
     </div>
   );

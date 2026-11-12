@@ -21,6 +21,8 @@ export const en = {
     emptyBody: "We are working on our first releases. Check back soon.",
     privacy: "Privacy",
     support: "Support",
+    privacyPolicy: "Privacy policy",
+    termsOfService: "Terms of service",
     screenshots: "Screenshots",
     website: "Website",
     publishedBy: "Published by",

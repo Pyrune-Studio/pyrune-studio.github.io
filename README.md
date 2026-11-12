@@ -67,6 +67,8 @@ The CRO number and registered office are shown on `/legal` only, as required by 
   appStoreUrl: "https://…",       // optional: only the stores filled in are shown
   googlePlayUrl: "https://…",     // optional
   hideLegalPages: false,          // true if privacy and support live on the app's own website
+  privacyPolicyUrl: "https://…",  // optional, with hideLegalPages: external privacy policy
+  termsUrl: "https://…",          // optional, with hideLegalPages: external terms of service
   supportEmail: "…",              // optional, defaults to company.email
   dataCollected: [],              // e.g. ["Email address, to create an account"]
   thirdPartyServices: [],         // e.g. [{ name: "Firebase", purpose: "Crash reports", privacyUrl: "https://…" }]
@@ -98,6 +100,14 @@ After going live:
 - Verify `pyrune.studio` in Google Search Console with a DNS TXT record in Cloudflare, and submit `https://pyrune.studio/sitemap.xml`.
 - Send a test email to `contact@pyrune.studio` to check the email routing.
 - Analytics: if needed later, use Vercel Analytics, which uses no cookies, so no cookie banner is required. Then update the privacy policy.
+
+## Security
+
+- HTTP security headers (CSP, HSTS, `nosniff`, `frame-ancestors 'none'`…) are set in [`next.config.ts`](next.config.ts). Any new external origin (analytics, embedded video, fonts…) must be added to the CSP, or the browser will block it.
+- `public/.well-known/security.txt` tells researchers where to report a vulnerability. Its `Expires` date must be renewed every year (next: 2027-11-01).
+- Run `pnpm audit --prod` and keep `next` up to date: the framework regularly ships security fixes.
+- DNS hardening in Cloudflare: a DMARC record (`_dmarc` TXT, `v=DMARC1; p=reject` as long as no email is *sent* from `@pyrune.studio`) and DNSSEC enabled.
+- Two-factor authentication on every account that can change the site: GitHub organisation, Vercel, Cloudflare, domain registrar.
 
 ## Remaining TODOs
 

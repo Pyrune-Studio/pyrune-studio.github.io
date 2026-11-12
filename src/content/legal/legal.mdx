@@ -1,0 +1,33 @@
+import { company } from "@/content/company";
+
+{/* TODO: template, to be reviewed by a professional before publication.
+    These are the particulars required by s.151 of the Companies Act 2014 and the
+    E-Commerce Regulations (S.I. 68/2003). They are already public on the CRO
+    register; this page is the only place on the site that shows them. */}
+
+Information published in accordance with section 151 of the Irish Companies Act 2014.
+
+## Company
+
+<dl>
+  <dt>Registered name</dt>
+  <dd>{company.legalName}</dd>
+  <dt>Place of registration</dt>
+  <dd>Ireland</dd>
+  <dt>Registration number (CRO)</dt>
+  <dd>{company.croNumber}</dd>
+  <dt>Registered office</dt>
+  <dd>{company.registeredOffice}</dd>
+  {company.vatNumber && <dt>VAT number</dt>}
+  {company.vatNumber && <dd>{company.vatNumber}</dd>}
+  <dt>Email</dt>
+  <dd><a href={`mailto:${company.email}`}>{company.email}</a></dd>
+</dl>
+
+## Hosting
+
+This website is hosted by <a href={company.host.url}>{company.host.name}</a>, {company.host.address}.
+
+## Intellectual property
+
+The {company.tradingName} name, logo, apps and the content of this website are the property of {company.legalName}, unless stated otherwise. See the [Terms of Use](/terms).

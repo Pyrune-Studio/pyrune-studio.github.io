@@ -1,0 +1,4 @@
+Contact: mailto:contact@pyrune.studio
+Expires: 2027-11-01T00:00:00.000Z
+Preferred-Languages: en, fr
+Canonical: https://pyrune.studio/.well-known/security.txt

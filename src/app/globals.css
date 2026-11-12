@@ -1,35 +1,181 @@
 @import "tailwindcss";
 
+/* Palette sampled from the logo. Dark is the default theme. */
 :root {
-  --background: #01051d;
-  --foreground: #f4f4f6;
-  --brand: #1b2a6b;
-  --brand-dark: #0e1440;
-  --brand-light: #7c8cef;
-  --brand-white: #ffffff;
-  --brand-yellow: #eed21c;
+  --indigo-500: #2535a0;
+  --indigo-600: #1e2b84;
+  --indigo-800: #172169;
+
+  --bg: #0a0d1f;
+  --surface: #11152e;
+  --fg: #e8eaf6;
+  --muted: #9aa2c6;
+  --line: rgb(232 234 246 / 0.1);
+  --accent: #8e9bf2; /* indigo tint readable as text on --bg */
+  --halo: rgb(37 53 160 / 0.45);
+  --grid: rgb(232 234 246 / 0.04);
+
+  color-scheme: dark;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg: #f6f7fc;
+    --surface: #ffffff;
+    --fg: #0e1330;
+    --muted: #4a5275;
+    --line: rgb(14 19 48 / 0.12);
+    --accent: #2535a0;
+    --halo: rgb(37 53 160 / 0.16);
+    --grid: rgb(14 19 48 / 0.05);
+
+    color-scheme: light;
+  }
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-brand: var(--brand);
-  --color-brand-dark: var(--brand-dark);
-  --color-brand-light: var(--brand-light);
-  --color-brand-white: var(--brand-white);
-  --color-brand-yellow: var(--brand-yellow);
+  --color-indigo-500: var(--indigo-500);
+  --color-indigo-600: var(--indigo-600);
+  --color-indigo-800: var(--indigo-800);
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
 body {
-  background: radial-gradient(
-      120% 100% at 98% 100%,
-      var(--brand) 0%,
-      transparent 55%
-    ),
-    var(--background);
-  background-attachment: fixed;
-  color: var(--foreground);
+  background: var(--bg);
+  color: var(--fg);
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Faint rune grid, faded out towards the edges. */
+.rune-grid {
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse at center, black 20%, transparent 70%);
+}
+
+.rune-halo {
+  background: radial-gradient(circle, var(--halo) 0%, transparent 65%);
+}
+
+/* Glyph drawn on load. Paths use pathLength="1". */
+.rune-draw {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: rune-draw 0.9s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+
+@keyframes rune-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.fade-in {
+  opacity: 0;
+  animation: fade-in 0.6s ease-out forwards;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rune-draw,
+  .fade-in {
+    animation: none;
+    opacity: 1;
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Long-form text: legal pages (MDX and generated). */
+.legal {
+  color: var(--muted);
+  line-height: 1.75;
+}
+
+.legal h2 {
+  margin-top: 2.5rem;
+  margin-bottom: 0.75rem;
+  color: var(--fg);
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.legal h3 {
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: var(--fg);
+  font-weight: 600;
+}
+
+.legal p,
+.legal ul,
+.legal dl {
+  margin-top: 0.75rem;
+}
+
+.legal ul {
+  list-style: disc;
+  padding-left: 1.25rem;
+}
+
+.legal li + li {
+  margin-top: 0.25rem;
+}
+
+.legal dl {
+  display: grid;
+  gap: 0.25rem 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .legal dl {
+    grid-template-columns: 14rem 1fr;
+  }
+}
+
+.legal dd + dt {
+  margin-top: 0.75rem;
+}
+
+@media (min-width: 640px) {
+  .legal dd + dt {
+    margin-top: 0;
+  }
+}
+
+.legal strong,
+.legal dt {
+  color: var(--fg);
+  font-weight: 500;
+}
+
+.legal a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }

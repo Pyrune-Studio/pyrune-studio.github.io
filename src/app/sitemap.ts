@@ -10,6 +10,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       `/apps/${app.slug}/privacy`,
       `/apps/${app.slug}/support`,
     ]),
+    // Hand-written legal pages hosted on this site.
+    ...apps.flatMap((app) =>
+      [app.termsUrl, app.privacyPolicyUrl].filter(
+        (url): url is string => !!url && url.startsWith("/"),
+      ),
+    ),
   ];
 
   return [...staticRoutes, ...appRoutes].map((path) => ({

@@ -27,7 +27,8 @@ export type App = {
   // true when the app's privacy policy and support live elsewhere (e.g. its own
   // website): /apps/[slug]/privacy and /support are then not generated.
   hideLegalPages?: boolean;
-  // External legal pages, shown on the app page when hideLegalPages is true.
+  // Legal pages shown on the app page when hideLegalPages is true: an external URL,
+  // or a path on this site (e.g. "/apps/nth/privacy") for hand-written pages.
   privacyPolicyUrl?: string;
   termsUrl?: string;
   supportEmail?: string; // defaults to company.email
@@ -74,12 +75,15 @@ export const apps: App[] = [
     role: "developer",
     websiteUrl: "",
     googlePlayUrl: "",
+    // Hand-written legal pages: src/app/apps/nth/{privacy,terms}.
     hideLegalPages: true,
+    privacyPolicyUrl: "/apps/nth/privacy",
+    termsUrl: "/apps/nth/terms",
     dataCollected: [],
     thirdPartyServices: [],
-    privacyLastUpdated: "2026-11-02",
+    privacyLastUpdated: "2026-11-19",
   },
-  
+
 ];
 
 export function getApp(slug: string): App | undefined {
